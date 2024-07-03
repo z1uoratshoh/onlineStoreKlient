@@ -2,6 +2,7 @@
 
 import MyCard from "../../components/myCard/myCard";
 import MyButton from "../../components/myButton/myButton";
+import GetCard  from "../../components/getCard/getCard";
 
 
 // * images
@@ -21,6 +22,7 @@ import icon_1 from "../../assets/images/icon_1.png";
 import icon_2 from "../../assets/images/icon_2.png";
 import icon_3 from "../../assets/images/icon_3.png";
 import { useGetTodosQuery } from "../../api/apiSlice";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const myCard = [
@@ -88,9 +90,11 @@ const Home = () => {
 // 	plugins: [],
 // }
 
-  const [ search , setSearch ] = useState('')
-  const [ data ] = useGetTodosQuery(search)
 
+  const { data} = useGetTodosQuery(); 
+  console.log(data);
+  const imgApi = "http://65.108.148.136:8072/images/";
+  console.log(data);
 
   return (
     <main>
@@ -165,18 +169,30 @@ const Home = () => {
         </div>
       </section>
 
-      <article className="py-[50] flex flex-wrap items-center justify-center gap-[50px] ">
-        {data?.data.map((elem, i) => {
-          console.log('my elem', elem);
-          return (
-            // <MyCard
-            //   key={i}
-            //  obj={elem}
-            // />
-            <h1 key={i} > {elem.name}  </h1>
-          );
-        })}
-      </article>
+      <div className='mt-[80px] px-[20px]'>
+        <div className='flex w-[100%] flex-wrap items-start gap-[35px] ml-[20px]'>
+          {data?.data?.products?.map((el) => {
+            return (
+              <GetCard
+              key={el.id}
+              image={`${imgApi}${el.image}`}
+              productName={el.productName}
+              price={el.price}
+              discountPrice={el.quantity}
+              quantity={el.price + 72}
+              id={el.id}
+            />
+            )
+          }
+            
+          )}
+        </div>
+        <Link to={"products"}>
+          <button className='ml-[550px] mt-[30px] w-[200px] h-[35px] rounded-[3px] bg-[#DB4444] text-[white]'>
+            View All Products
+          </button>
+        </Link>
+      </div>
 
       <div className=" w-[20%] my-[80px] m-auto">
         <MyButton text={"View All Products"} />
