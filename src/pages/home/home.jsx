@@ -6,7 +6,7 @@ import MyButton from "../../components/myButton/myButton";
 
 // * images
 // eslint-disable-next-line no-unused-vars
-import React from "react";
+import React, { useState } from "react";
 import apple from "../../assets/images/apple.png";
 import phone from "../../assets/images/phone.png";
 import right from "../../assets/images/right.png";
@@ -20,6 +20,7 @@ import speaker from "../../assets/images/speaker.png";
 import icon_1 from "../../assets/images/icon_1.png";
 import icon_2 from "../../assets/images/icon_2.png";
 import icon_3 from "../../assets/images/icon_3.png";
+import { useGetTodosQuery } from "../../api/apiSlice";
 
 const Home = () => {
   const myCard = [
@@ -69,24 +70,46 @@ const Home = () => {
     },
   ];
 
+//   /** @type {import('tailwindcss').Config} */
+// export default {
+// 	darkMode: 'selector',
+// 	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+// 	theme: {
+// 		screens: {
+// 			'2xl': { max: '1535px' },
+// 			xl: { max: '1279px' },
+// 			lg: { max: '1023px' },
+// 			md: { max: '767px' },
+// 			sm: { max: '639px' },
+// 			xs: { max: '400px' },
+// 		},
+// 		extend: {},
+// 	},
+// 	plugins: [],
+// }
+
+  const [ search , setSearch ] = useState('')
+  const [ data ] = useGetTodosQuery(search)
+
+
   return (
     <main>
-      <section className="flex items-center gap-[150px] justify-center pt-[50px]">
-        <ul className="leading-[35px]">
-          <li>Woman’s Fashion</li>
-          <li>Men’s Fashion</li>
-          <li>Electronics</li>
-          <li>Home & Lifestyle</li>
-          <li>Medicine</li>
-          <li>Sports & Outdoor</li>
-          <li>Baby’s & Toys</li>
-          <li>Groceries & Pets</li>
-          <li>Health & Beauty</li>
+      <section className="flex flex-wrap xl:gap-[50px] lg:justify-start items-center gap-[150px] justify-center pt-[50px]">
+        <ul className="lg:flex lg:flex-wrap lg:px-[20px] lg:leading-[30px] lg:gap-[30px] leading-[35px]">
+          <li className="lg:bg-gray-300 lg:rounded-md lg:p-[5px_10px]" >Woman’s Fashion</li>
+          <li className="lg:bg-gray-300 lg:rounded-md lg:p-[5px_10px]" >Men’s Fashion</li>
+          <li className="lg:bg-gray-300 lg:rounded-md lg:p-[5px_10px]" >Electronics</li>
+          <li className="lg:bg-gray-300 lg:rounded-md lg:p-[5px_10px]" >Home & Lifestyle</li>
+          <li className="lg:bg-gray-300 lg:rounded-md lg:p-[5px_10px]" >Medicine</li>
+          <li className="lg:bg-gray-300 lg:rounded-md lg:p-[5px_10px]" >Sports & Outdoor</li>
+          <li className="lg:bg-gray-300 lg:rounded-md lg:p-[5px_10px]" >Baby’s & Toys</li>
+          <li className="lg:bg-gray-300 lg:rounded-md lg:p-[5px_10px]" >Groceries & Pets</li>
+          <li className="lg:bg-gray-300 lg:rounded-md lg:p-[5px_10px]" >Health & Beauty</li>
         </ul>
 
-        <aside className="flex bg-[black] text-[white] w-[892px] h-[344px] items-center justify-center ">
-          <div className="">
-            <figure className="flex items-center gap-[10px]">
+        <aside className="flex lg:block lg:m-auto bg-[black] text-[white] w-[59%]  items-center justify-center ">
+          <div className="lg:text-center">
+            <figure className="flex items-center lg:justify-center lg:pt-[20px] gap-[10px]">
               <img src={apple} alt="" />
               <h1 className="text-[white]">iPhone 14 Series</h1>
             </figure>
@@ -96,19 +119,19 @@ const Home = () => {
             <button>Shop Now → </button>
           </div>
           <div>
-            <img src={phone} alt="" />
+            <img className="lg:m-auto lg:py-[10px]" src={phone} alt="" />
           </div>
         </aside>
       </section>
 
-      <section className="pl-[180px] py-[50px] ">
+      <section className="pl-[180px] md:pl-[130px] sm:pl-[100px] flex-wrap py-[50px] ">
         <div className="flex items-center gap-[10px]">
           <div className="bg-[#DB4444] rounded-[4px] w-[20px] h-[40px]"></div>
           <h1 className="text-[#DB4444] text-[16px] font-[600] ">Today’s</h1>
         </div>
 
-        <div className="flex items-center gap-[80px]">
-          <h1 className="text-[36px] font-[600] ">Flash Sales</h1>
+        <div className="flex flex-wrap items-center md:gap-0 gap-[80px]">
+          <h1 className="text-[36px] md:block md:w-full md:pb-[20px] font-[600] ">Flash Sales</h1>
           <article className="flex items-center gap-[10px]">
             <div>
               <h2>Days</h2>
@@ -135,7 +158,7 @@ const Home = () => {
             </div>
           </article>
 
-          <div className="flex justify-end w-[46%] items-center gap-[10px]">
+          <div className="flex justify-end xl:hidden w-[46%] items-center gap-[10px]">
             <img src={left} alt="" />
             <img src={right} alt="" />
           </div>
@@ -143,12 +166,14 @@ const Home = () => {
       </section>
 
       <article className="py-[50] flex flex-wrap items-center justify-center gap-[50px] ">
-        {myCard.map((elem, i) => {
+        {data?.data.map((elem, i) => {
+          console.log('my elem', elem);
           return (
-            <MyCard
-              key={i}
-             obj={elem}
-            />
+            // <MyCard
+            //   key={i}
+            //  obj={elem}
+            // />
+            <h1 key={i} > {elem.name}  </h1>
           );
         })}
       </article>
@@ -166,13 +191,13 @@ const Home = () => {
 
       <div className="flex items-center justify-between py-[20px] px-[150px]">
         <h1 className="text-[36px] font-[600]">Browse By Category</h1>
-        <div className="flex items-center gap-[10px]">
+        <div className="flex items-center lg:hidden gap-[10px]">
           <img src={left} alt="" />
           <img src={right} alt="" />
         </div>
       </div>
 
-      <section className="flex items-center justify-evenly flex-wrap py-[50px]">
+      <section className="flex items-center justify-evenly md:gap-[20px] flex-wrap py-[50px]">
         <div className="border-[2px] w-[170px] h-[145px] grid place-items-center rounded-[4px]">
           <div>
             <img src={computer} alt="" />
@@ -216,10 +241,10 @@ const Home = () => {
         <h1 className="text-[#DB4444] text-[16px] font-[600]">This Month</h1>
       </div>
 
-      <div className="flex items-center pb-[50px] justify-between pt-[20px] px-[150px]">
+      <div className="flex items-center pb-[50px] lg:px-[60px] flex-wrap justify-between pt-[20px] px-[150px]">
         <h1 className="text-[36px] font-[600]">Best Selling Products</h1>
         <div className="flex items-center gap-[10px]">
-          <MyButton text={"View All"} style={" w-[150px] "} />
+          <MyButton text={"View All"} style={" w-[140px] "} />
         </div>
       </div>
 
@@ -234,10 +259,11 @@ const Home = () => {
         })}
       </article>
 
-      <section className="bg-[black] w-[80%] flex items-center justify-center rounded-[4px] m-auto ">
-        <div>
-          <h3 className="text-[#00FF66] text-[16px] font-[600]">Categories</h3>
-          <h1 className="text-[48px] font-[600] text-[white]">
+      <section className="bg-[black] w-[80%] flex flex-wrap items-center justify-center rounded-[4px] m-auto ">
+       <div className="xl:flex xl:flex-wrap" >
+       <div> 
+          <h3 className="text-[#00FF66] md:py-[20px] text-[16px] font-[600]">Categories</h3>
+          <h1 className="text-[48px] md:text-[38px] font-[600] text-[white]">
             Enhance Your <br /> Music Experience
           </h1>
 
@@ -273,7 +299,8 @@ const Home = () => {
             style={"bg-[#00FF66] hover:bg-[#00CC52] w-[170px] text-[black]"}
           />
         </div>
-        <aside>
+       </div>
+        <aside >
           <img src={speaker} alt="" />
         </aside>
       </section>
@@ -312,7 +339,7 @@ const Home = () => {
       </div>
 
       <div
-        className="grid grid-cols-2 gap-4 p-4"
+        className="grid grid-cols-2 lg:flex-wrap lg:grid-cols-1 gap-4 p-4"
         style={{ maxWidth: "1520px", margin: "0 auto" }}
       >
         {/* PlayStation 5 */}
@@ -327,11 +354,11 @@ const Home = () => {
             </button>
           </div>
         </div>
-        <div className="grid grid-rows-2 gap-4 col-span-1">
+        <div className="grid grid-rows-2 lg:grid-rows-1 gap-4 col-span-1">
           {/* Women's Collections */}
           <div className="relative bg-yellow-500 h-40 flex items-end p-4">
             <div className="bg-black bg-opacity-50 text-white p-4">
-              <h2 className="text-xl font-bold">Women's Collections</h2>
+              <h2 className="text-xl font-bold">Women`s Collections</h2>
               <p className="text-sm">
                 Featured woman collections that give you another vibe.
               </p>
@@ -340,7 +367,7 @@ const Home = () => {
               </button>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-1 gap-4">
             {/* Speakers */}
             <div className="relative bg-red-500 h-40 flex items-end p-4">
               <div className="bg-black bg-opacity-50 text-white p-4">
@@ -365,7 +392,7 @@ const Home = () => {
         </div>
       </div>
 
-      <section className="flex items-center justify-center gap-[50px] py-[100px] ">
+      <section className="flex flex-wrap items-center justify-center gap-[50px] py-[100px] ">
         <div className="w-[300px] ">
           <img className="object-cover m-auto" src={icon_1} alt="" />
           <h1 className=" text-center py-[5px] text-[20px] font-[600]">

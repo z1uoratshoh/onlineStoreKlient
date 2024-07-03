@@ -10,17 +10,77 @@ import facebook from "../assets/images/facebook.png";
 import instagram from "../assets/images/instagram.png";
 import twitter from "../assets/images/twitter.png";
 import linkedin from "../assets/images/linkedin.png";
+import MenuIcon from '@mui/icons-material/Menu';
+
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { Search } from "@mui/icons-material";
+
+
+// /** @type {import('tailwindcss').Config} */
+// export default {
+// 	darkMode: 'selector',
+// 	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+// 	theme: {
+// 		screens: {
+// 			'2xl': { max: '1535px' },
+// 			xl: { max: '1279px' },
+// 			lg: { max: '1023px' },
+// 			md: { max: '767px' },
+// 			sm: { max: '639px' },
+// 			xs: { max: '400px' },
+// 		},
+// 		extend: {},
+// 	},
+// 	plugins: [],
+// }
 
 const Layout = () => {
+
+
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+
+
+
   let { pathname } = useLocation();
   console.log(pathname);
   return (
     <div>
-      <nav className="flex items-center justify-between py-[30px] px-[100px] ">
+      <nav className="flex flex-wrap items-center justify-between lg:px-[50px] py-[30px] px-[100px] ">
         <aside>
-          <img src={logo} alt="" />
+          <img className="lg:hidden" src={logo} alt="" />
+          <div className="flex items-center gap-[10px]" >
+          <div className="hidden lg:block" > <MenuIcon  onClick={handleClick} /> </div>
+          <h1 className="hidden lg:block font-bold text-[24px] " >Exclusive</h1>
+          </div>
+          <div>
+     
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleClose}>Logout</MenuItem>
+      </Menu>
+    </div>
         </aside>
-        <ul className="flex items-center gap-[20px]">
+        <ul className="flex items-center gap-[20px] lg:gap-[10px] md:hidden">
           <Link to={"/"} className="font-[500] text-[16.5px] ">
             Home
           </Link>
@@ -30,7 +90,7 @@ const Layout = () => {
             Sign Up
           </Link>
         </ul>
-        <div className="flex relative left-[150px] items-center">
+        <div className="flex relative 2xl:left-0 lg:hidden left-[150px] items-center">
           <input
             className="w-[283px] pl-[20px] h-[38px] bg-[#F5F5F5] rounded-[4px]"
             placeholder="What are you looking for?"
@@ -39,13 +99,22 @@ const Layout = () => {
           <img className="relative right-[40px]" src={search} alt="" />
         </div>
         <div className="flex items-center gap-[10px]">
-          <Link to={'/selected'} > <img src={like} alt="" /> </Link>
+          <Link className="lg:hidden" to={'/selected'} > <img src={like} alt="" /> </Link>
           <img src={cart} alt="" />
           <img src={user} alt="" />
         </div>
+
+       <article className="hidden md:mt-[20px] md:text-center w-full md:block" >
+       <div className="flex justify-center items-center" >
+          <input className="w-[283px] pl-[20px] h-[38px] bg-[#F5F5F5] rounded-[4px]" placeholder="Search" type="search" />
+         <div className="relative right-[30px]" > <Search/></div>
+        </div>
+       </article>
+
       </nav>
+
       <Outlet />
-      <footer className="bg-[black] flex justify-evenly  items-center text-[white] ">
+      <footer className="bg-[black] flex flex-wrap justify-center px-[20px] gap-[110px] md:gap-[50px] items-center text-[white] ">
         <article className="py-[50px]" >
           <ul className="leading-[40px]" >
             <li className="text-[24px] font-[700]" >Exclusive</li>

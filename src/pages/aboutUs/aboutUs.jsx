@@ -14,27 +14,38 @@ import icon_1 from "../../assets/images/icon_1.png";
 import icon_2 from "../../assets/images/icon_2.png";
 import icon_3 from "../../assets/images/icon_3.png";
 
+
+// screens: {
+//   '2xl': { max: '1535px' },
+//   xl: { max: '1279px' },
+//   lg: { max: '1023px' },
+//   md: { max: '767px' },
+//   sm: { max: '639px' },
+//   xs: { max: '400px' },
+// },
+
+
 const aboutUs = () => {
   return (
     <div>
-      <ul className="flex pl-[190px] items-center">
+      <ul className="flex pl-[190px] sm:pl-[50px] items-center">
         <li>Home /</li>
         <li> About</li>
       </ul>
 
-      <section className="flex items-center my-[90px] justify-center gap-[70px]">
+      <section className="flex flex-wrap px-[20px] items-center my-[90px] justify-center gap-[70px]">
         <aside>
-          <h1 className="text-[54px] font-[600]">Our Story</h1>
-          <p className="w-[525px] py-[20px]">
+          <h1 className="text-[54px] sm:text-[27px] sm:text-center font-[600]">Our Story</h1>
+          <p className="w-[525px] sm:text-[14px] sm:w-[70%] sm:m-auto py-[20px]">
             Launched in 2015, Exclusive is South Asia’s premier online shopping
             marketplace with an active presence in Bangladesh. Supported by wide
             range of tailored marketing, data and service solutions, Exclusive
             has 10,500 sellers and 300 brands and serves 3 millions customers
             across the region.{" "}
           </p>
-          <p className="w-[505px]">
+          <p className="w-[505px] sm:text-[14px] sm:w-[70%] sm:m-auto ">
             Exclusive has more than 1 Million products to offer, growing at a
-            very fast. Exclusive offers a diverse assotment in categories
+            very fast. Exclusive offers a diverse assortment in categories
             ranging from consumer.
           </p>
         </aside>
@@ -115,7 +126,7 @@ const aboutUs = () => {
           </figure>
         </div>
       </section>
-      <section className="flex items-center justify-center gap-[50px] pb-[150px] pt-[100px] ">
+      <section className="flex flex-wrap items-center justify-center gap-[50px] pb-[150px] pt-[100px] ">
         <div className="w-[300px] ">
           <img className="object-cover m-auto" src={icon_1} alt="" />
           <h1 className=" text-center py-[5px] text-[20px] font-[600]">
